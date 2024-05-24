@@ -10,18 +10,20 @@ tags = db.Table('tags',
 
 class Candidate(Base):
     name = db.Column(db.String(144), nullable=False)
-    selected = db.Column(db.Boolean, nullable = False)
+    selected = db.Column(db.Boolean, nullable=False)
     url = db.Column(db.String(144), nullable=False)
+    description = db.Column(db.Text())
     nominator_id = db.Column(db.Integer, db.ForeignKey('account.id'), nullable=False)
     approvals = db.relationship("Approval", backref='approval', lazy=True, cascade="all, delete-orphan")
     vetoes = db.relationship("Veto", backref='veto', lazy=True, cascade="all, delete-orphan")
     tags = db.relationship('Tag', secondary=tags, lazy='subquery',
         backref=db.backref('candidates', lazy=True))
 
-    def __init__(self, name, nominator_id, url = ""):
+    def __init__(self, name, nominator_id, url = "", description = None):
         self.name = name
         self.selected = False
         self.url = url
+        self.description = description
         self.nominator_id = nominator_id
 
     @staticmethod

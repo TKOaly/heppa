@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from typing import Optional
 from application.candidates.models import Tag
 from application.votes.models import Approval, Veto
 
@@ -6,6 +7,7 @@ from application.votes.models import Approval, Veto
 class APIBase():
     name: str
     url: str
+    description: Optional[str]
     nominator: str # Username
 
 @dataclass

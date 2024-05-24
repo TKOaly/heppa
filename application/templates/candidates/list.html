@@ -24,6 +24,12 @@
       {% endif %}
     </div>
 
+    {% if candidate.description %}
+    <div class="description">
+      {{ candidate.description }}
+    </div>
+    {% endif %}
+
     <div class="mobile-block">
       <p class="nominator"><span class="mobile">{{ _("Nominated by") }}</span> {{ candidate.nominator }}</p>
       {% if candidate.approvers %}<p class="mobile approvers">{{ candidate.approvers | length }}👍 ({{ candidate.approvers | map('empty_to_epsilon') | listify }})</p>{% endif %}

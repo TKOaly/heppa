@@ -101,6 +101,7 @@ def candidates_edit(candidate_id):
     candidate.name = form.name.data
     candidate.selected = form.selected.data
     candidate.url = form.url.data
+    candidate.description = form.description.data
 
     db.session.commit()
 
@@ -123,8 +124,6 @@ def candidates_delete(candidate_id):
 @app.route("/candidates/approved/<candidate_id>/", methods=["POST"])
 @login_required
 def candidates_set_approved(candidate_id):
-    candidate = Candidate.query.get(candidate_id)
-
     approval = Approval.query.filter_by(candidate_id=candidate_id, voter_id=current_user.id).first()
 
     if (approval == None):
@@ -140,8 +139,6 @@ def candidates_set_approved(candidate_id):
 @app.route("/candidates/veto/<candidate_id>/", methods=["POST"])
 @login_required
 def candidates_set_veto(candidate_id):
-    candidate = Candidate.query.get(candidate_id)
-
     veto = Veto.query.filter_by(candidate_id=candidate_id, voter_id=current_user.id).first()
 
     if (veto == None):
@@ -162,7 +159,7 @@ def candidates_create():
     if not form.validate():
         return render_template("tasks/new.html", form=form)
 
-    candidate = Candidate(form.name.data, current_user.id, form.url.data)
+    candidate = Candidate(form.name.data, current_user.id, form.url.data, form.description.data)
 
     db.session().add(candidate)
     db.session().commit()

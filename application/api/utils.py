@@ -6,6 +6,7 @@ def parse_candidate(candidate: Candidate) -> APICandidate:
     return APICandidate(
         name = candidate.name,
         url = candidate.url,
+        description = candidate.description,
         nominator = User.query.get(candidate.nominator_id).name,
         approvals = [User.query.get(approval.voter_id).name for approval in candidate.approvals],
         vetoes = [User.query.get(veto.voter_id).name for veto in candidate.vetoes],
@@ -18,6 +19,7 @@ def parse_candidates(candidates):
 def parse_selected(candidate: Candidate) -> APISelected:
     return APISelected(
         name = candidate.name,
+        description = candidate.description,
         url = candidate.url,
         nominator = User.query.get(candidate.nominator_id).name,
         tags = [tag.name for tag in candidate.tags],
