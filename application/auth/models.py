@@ -52,7 +52,7 @@ class User(Base):
                     "LEFT JOIN approval ON account.id = approval.voter_id "
                     "WHERE (approval.voter_id IS NOT NULL) OR (veto.voter_id IS NOT NULL)")
 
-        query_result = db.engine.execute(stmt)
+        query_result = db.session.execute(stmt)
 
         row = query_result.first()
         if row == None:

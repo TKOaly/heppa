@@ -34,7 +34,7 @@ class Candidate(Base):
                     "GROUP BY candidate.id "
                     "HAVING COUNT(veto.candidate_id) = 0 "
                     "ORDER BY count")
-        query_result = db.engine.execute(stmt)
+        query_result = db.session.execute(stmt)
 
         # Select all tied for first place
         result = []
