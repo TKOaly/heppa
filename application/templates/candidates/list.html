@@ -46,7 +46,9 @@
 
   <p>
     {{ n_of_voters }} {{ ngettext('person has voted.', 'people have voted.', n_of_voters) }}
-    {{ winning|map('quote')|listify }} {{ ngettext('is winning.', 'are tied.', winning|length) }}
+    {% if n_of_voters > 0 %}
+      {{ winning|map('quote')|listify }} {{ ngettext('is winning.', 'are tied.', winning|length) }}
+    {% endif %}
   </p>
   {% else %}
     <div class="notification error">
